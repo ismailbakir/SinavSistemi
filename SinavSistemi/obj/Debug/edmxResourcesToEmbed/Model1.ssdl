@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SinavSistemiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ders">
+    <Key>
+      <PropertyRef Name="dersID" />
+    </Key>
+    <Property Name="dersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dersAdi" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Konu">
+    <Key>
+      <PropertyRef Name="konuID" />
+    </Key>
+    <Property Name="konuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="konuAdi" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="dersID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kullanıcı">
+    <Key>
+      <PropertyRef Name="kullaniciID" />
+    </Key>
+    <Property Name="kullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullaniciAd" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="kullaniciSoyad" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="kullaniciEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="kullaniciTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="kullaniciSifre" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ogrenci">
+    <Key>
+      <PropertyRef Name="ogrenciID" />
+    </Key>
+    <Property Name="ogrenciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullaniciID" Type="int" Nullable="false" />
+    <Property Name="ogrenciSinif" Type="int" Nullable="false" />
+    <Property Name="ogrenciSeviye" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ogretmen">
+    <Key>
+      <PropertyRef Name="ogretmenID" />
+    </Key>
+    <Property Name="ogretmenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ogretmentDers" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="kullaniciID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sinav">
+    <Key>
+      <PropertyRef Name="sinavID" />
+    </Key>
+    <Property Name="sinavID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sinavSonuc" Type="int" Nullable="false" />
+    <Property Name="sinavTarih" Type="datetime" Nullable="false" />
+    <Property Name="ogrenciID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Soru">
+    <Key>
+      <PropertyRef Name="soruID" />
+    </Key>
+    <Property Name="soruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="soruMetin" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="soruCevap" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="soruDersID" Type="int" Nullable="false" />
+    <Property Name="soruKonuID" Type="int" Nullable="false" />
+    <Property Name="soruResim" Type="nvarchar" MaxLength="50" />
+    <Property Name="soruSeviye" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Ogrenci_Kullanıcı1">
+    <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="1" />
+    <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanıcı">
+        <PropertyRef Name="kullaniciID" />
+      </Principal>
+      <Dependent Role="Ogrenci">
+        <PropertyRef Name="kullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ogretmen_Kullanıcı1">
+    <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="1" />
+    <End Role="Ogretmen" Type="Self.Ogretmen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanıcı">
+        <PropertyRef Name="kullaniciID" />
+      </Principal>
+      <Dependent Role="Ogretmen">
+        <PropertyRef Name="kullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sinav_Ogrenci">
+    <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="1" />
+    <End Role="Sinav" Type="Self.Sinav" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogrenci">
+        <PropertyRef Name="ogrenciID" />
+      </Principal>
+      <Dependent Role="Sinav">
+        <PropertyRef Name="ogrenciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Soru_Ders">
+    <End Role="Ders" Type="Self.Ders" Multiplicity="1" />
+    <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ders">
+        <PropertyRef Name="dersID" />
+      </Principal>
+      <Dependent Role="Soru">
+        <PropertyRef Name="soruDersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Soru_Konu">
+    <End Role="Konu" Type="Self.Konu" Multiplicity="1" />
+    <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Konu">
+        <PropertyRef Name="konuID" />
+      </Principal>
+      <Dependent Role="Soru">
+        <PropertyRef Name="soruKonuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SinavSistemiModelStoreContainer">
+    <EntitySet Name="Ders" EntityType="Self.Ders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Konu" EntityType="Self.Konu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kullanıcı" EntityType="Self.Kullanıcı" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ogretmen" EntityType="Self.Ogretmen" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sinav" EntityType="Self.Sinav" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Soru" EntityType="Self.Soru" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Ogrenci_Kullanıcı1" Association="Self.FK_Ogrenci_Kullanıcı1">
+      <End Role="Kullanıcı" EntitySet="Kullanıcı" />
+      <End Role="Ogrenci" EntitySet="Ogrenci" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ogretmen_Kullanıcı1" Association="Self.FK_Ogretmen_Kullanıcı1">
+      <End Role="Kullanıcı" EntitySet="Kullanıcı" />
+      <End Role="Ogretmen" EntitySet="Ogretmen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sinav_Ogrenci" Association="Self.FK_Sinav_Ogrenci">
+      <End Role="Ogrenci" EntitySet="Ogrenci" />
+      <End Role="Sinav" EntitySet="Sinav" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Soru_Ders" Association="Self.FK_Soru_Ders">
+      <End Role="Ders" EntitySet="Ders" />
+      <End Role="Soru" EntitySet="Soru" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Soru_Konu" Association="Self.FK_Soru_Konu">
+      <End Role="Konu" EntitySet="Konu" />
+      <End Role="Soru" EntitySet="Soru" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

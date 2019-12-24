@@ -12,19 +12,32 @@ namespace SinavSistemi.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
+        
+        [HttpGet]
+        public ActionResult GirisYap()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
+
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public ActionResult GirisYap(FormCollection form)
         {
-            ViewBag.Message = "Your contact page.";
+            string email = form["email"];
+            string password = form["password"];
 
-            return View();
+            SinavSistemiEntities db = new SinavSistemiEntities();
+            var kullanicilar = db.Kullanıcı.ToList();
+            var sonuc = kullanicilar.Where(x => x.kullaniciEmail.Equals(email) && x.kullaniciSifre.Equals(password)).FirstOrDefault();
+
+            if (sonuc != null)
+            {
+                return RedirectToAction("Index","Teacher");
+            }
+            else
+                return RedirectToAction("Index","Home");
         }
+
+
     }
 }
