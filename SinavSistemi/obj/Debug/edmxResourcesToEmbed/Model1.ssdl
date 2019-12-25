@@ -25,6 +25,7 @@
     <Property Name="kullaniciEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="kullaniciTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
     <Property Name="kullaniciSifre" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="kullaniciTur" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Ogrenci">
     <Key>
@@ -57,12 +58,13 @@
       <PropertyRef Name="soruID" />
     </Key>
     <Property Name="soruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="soruMetin" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="soruMetin" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="soruCevap" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="soruDersID" Type="int" Nullable="false" />
     <Property Name="soruKonuID" Type="int" Nullable="false" />
     <Property Name="soruResim" Type="nvarchar" MaxLength="50" />
     <Property Name="soruSeviye" Type="int" Nullable="false" />
+    <Property Name="soruOgretmenID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -134,6 +136,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Soru_Ogretmen">
+    <End Role="Ogretmen" Type="Self.Ogretmen" Multiplicity="1" />
+    <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogretmen">
+        <PropertyRef Name="ogretmenID" />
+      </Principal>
+      <Dependent Role="Soru">
+        <PropertyRef Name="soruOgretmenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="SinavSistemiModelStoreContainer">
     <EntitySet Name="Ders" EntityType="Self.Ders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Konu" EntityType="Self.Konu" Schema="dbo" store:Type="Tables" />
@@ -161,6 +175,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Soru_Konu" Association="Self.FK_Soru_Konu">
       <End Role="Konu" EntitySet="Konu" />
+      <End Role="Soru" EntitySet="Soru" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Soru_Ogretmen" Association="Self.FK_Soru_Ogretmen">
+      <End Role="Ogretmen" EntitySet="Ogretmen" />
       <End Role="Soru" EntitySet="Soru" />
     </AssociationSet>
   </EntityContainer>

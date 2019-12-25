@@ -27,6 +27,7 @@ namespace SinavSistemi
         public string kullaniciEmail { get; set; }
         public string kullaniciTelefon { get; set; }
         public string kullaniciSifre { get; set; }
+        public bool kullaniciTur { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ogrenci> Ogrenci { get; set; }

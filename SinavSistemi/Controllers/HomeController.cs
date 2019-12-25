@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
+
 
 namespace SinavSistemi.Controllers
 {
@@ -12,12 +10,11 @@ namespace SinavSistemi.Controllers
         {
             return View();
         }
-        
+
         [HttpGet]
         public ActionResult GirisYap()
         {
             return View();
-
         }
 
         [HttpPost]
@@ -32,12 +29,28 @@ namespace SinavSistemi.Controllers
 
             if (sonuc != null)
             {
-                return RedirectToAction("Index","Teacher");
+                switch (sonuc.kullaniciTur)
+                {
+                    case true:
+                        var ogretmen = db.Ogretmen.FirstOrDefault(x => x.kullaniciID.Equals(sonuc.kullaniciID));
+                        Session.Add("ogretmenID", ogretmen.ogretmenID);
+                        ToastrService.AddToUserQueue(new Toastr(message: "Başarılı Bir şekilde Giriş Yapıldı.", type: ToastrType.Success));
+                        return RedirectToAction("Index", "Teacher");
+                    case false:
+                        var ogrenci = db.Ogrenci.FirstOrDefault(x => x.kullaniciID.Equals(sonuc.kullaniciID));
+                        Session.Add("ogrenciID", ogrenci.ogrenciID);
+                        ToastrService.AddToUserQueue(new Toastr(message: "Başarılı Bir şekilde Giriş Yapıldı.", type: ToastrType.Success));
+                        return RedirectToAction("Index", "Student");
+                    default:
+                        ToastrService.AddToUserQueue(new Toastr(message: "Giriş Yapılamadı!", type: ToastrType.Error));
+                        return RedirectToAction("Index", "Home");
+                }
             }
             else
-                return RedirectToAction("Index","Home");
+            {
+                ToastrService.AddToUserQueue(new Toastr(message: "Giriş Yapılamadı!", type: ToastrType.Error));
+                return RedirectToAction("Index", "Home");
+            }
         }
-
-
     }
 }

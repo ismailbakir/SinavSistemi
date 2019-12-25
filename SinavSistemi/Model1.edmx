@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SinavSistemiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SinavSistemiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Ders">
           <Key>
             <PropertyRef Name="dersID" />
@@ -30,6 +30,7 @@
           <Property Name="kullaniciEmail" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="kullaniciTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
           <Property Name="kullaniciSifre" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="kullaniciTur" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Ogrenci">
           <Key>
@@ -62,12 +63,13 @@
             <PropertyRef Name="soruID" />
           </Key>
           <Property Name="soruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="soruMetin" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="soruMetin" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="soruCevap" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="soruDersID" Type="int" Nullable="false" />
           <Property Name="soruKonuID" Type="int" Nullable="false" />
           <Property Name="soruResim" Type="nvarchar" MaxLength="50" />
           <Property Name="soruSeviye" Type="int" Nullable="false" />
+          <Property Name="soruOgretmenID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -139,6 +141,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Soru_Ogretmen">
+          <End Role="Ogretmen" Type="Self.Ogretmen" Multiplicity="1" />
+          <End Role="Soru" Type="Self.Soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogretmen">
+              <PropertyRef Name="ogretmenID" />
+            </Principal>
+            <Dependent Role="Soru">
+              <PropertyRef Name="soruOgretmenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SinavSistemiModelStoreContainer">
           <EntitySet Name="Ders" EntityType="Self.Ders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Konu" EntityType="Self.Konu" Schema="dbo" store:Type="Tables" />
@@ -168,9 +182,12 @@
             <End Role="Konu" EntitySet="Konu" />
             <End Role="Soru" EntitySet="Soru" />
           </AssociationSet>
+          <AssociationSet Name="FK_Soru_Ogretmen" Association="Self.FK_Soru_Ogretmen">
+            <End Role="Ogretmen" EntitySet="Ogretmen" />
+            <End Role="Soru" EntitySet="Soru" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SinavSistemiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -203,6 +220,7 @@
           <Property Name="kullaniciSifre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Ogrenci_Kullanıcı1" FromRole="Kullanıcı" ToRole="Ogrenci" />
           <NavigationProperty Name="Ogretmen" Relationship="Self.FK_Ogretmen_Kullanıcı1" FromRole="Kullanıcı" ToRole="Ogretmen" />
+          <Property Name="kullaniciTur" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Ogrenci">
           <Key>
@@ -223,6 +241,7 @@
           <Property Name="ogretmentDers" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="kullaniciID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Kullanıcı" Relationship="Self.FK_Ogretmen_Kullanıcı1" FromRole="Ogretmen" ToRole="Kullanıcı" />
+          <NavigationProperty Name="Soru" Relationship="SinavSistemiModel.FK_Soru_Ogretmen" FromRole="Ogretmen" ToRole="Soru" />
         </EntityType>
         <EntityType Name="Sinav">
           <Key>
@@ -239,7 +258,7 @@
             <PropertyRef Name="soruID" />
           </Key>
           <Property Name="soruID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="soruMetin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="soruMetin" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="soruCevap" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="soruDersID" Type="Int32" Nullable="false" />
           <Property Name="soruKonuID" Type="Int32" Nullable="false" />
@@ -247,6 +266,8 @@
           <Property Name="soruSeviye" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Ders" Relationship="Self.FK_Soru_Ders" FromRole="Soru" ToRole="Ders" />
           <NavigationProperty Name="Konu" Relationship="Self.FK_Soru_Konu" FromRole="Soru" ToRole="Konu" />
+          <Property Name="soruOgretmenID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ogretmen" Relationship="SinavSistemiModel.FK_Soru_Ogretmen" FromRole="Soru" ToRole="Ogretmen" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -347,7 +368,23 @@
             <End Role="Ogrenci" EntitySet="Ogrenci" />
             <End Role="Sinav" EntitySet="Sinav" />
           </AssociationSet>
+          <AssociationSet Name="FK_Soru_Ogretmen" Association="SinavSistemiModel.FK_Soru_Ogretmen">
+            <End Role="Ogretmen" EntitySet="Ogretmen" />
+            <End Role="Soru" EntitySet="Soru" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Soru_Ogretmen">
+          <End Type="SinavSistemiModel.Ogretmen" Role="Ogretmen" Multiplicity="1" />
+          <End Type="SinavSistemiModel.Soru" Role="Soru" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ogretmen">
+              <PropertyRef Name="ogretmenID" />
+            </Principal>
+            <Dependent Role="Soru">
+              <PropertyRef Name="soruOgretmenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -374,6 +411,7 @@
           <EntitySetMapping Name="Kullanıcı">
             <EntityTypeMapping TypeName="SinavSistemiModel.Kullanıcı">
               <MappingFragment StoreEntitySet="Kullanıcı">
+                <ScalarProperty Name="kullaniciTur" ColumnName="kullaniciTur" />
                 <ScalarProperty Name="kullaniciID" ColumnName="kullaniciID" />
                 <ScalarProperty Name="kullaniciAd" ColumnName="kullaniciAd" />
                 <ScalarProperty Name="kullaniciSoyad" ColumnName="kullaniciSoyad" />
@@ -415,6 +453,7 @@
           <EntitySetMapping Name="Soru">
             <EntityTypeMapping TypeName="SinavSistemiModel.Soru">
               <MappingFragment StoreEntitySet="Soru">
+                <ScalarProperty Name="soruOgretmenID" ColumnName="soruOgretmenID" />
                 <ScalarProperty Name="soruID" ColumnName="soruID" />
                 <ScalarProperty Name="soruMetin" ColumnName="soruMetin" />
                 <ScalarProperty Name="soruCevap" ColumnName="soruCevap" />

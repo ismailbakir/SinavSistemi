@@ -21,6 +21,7 @@
     <EntitySetMapping Name="Kullanıcı">
       <EntityTypeMapping TypeName="SinavSistemiModel.Kullanıcı">
         <MappingFragment StoreEntitySet="Kullanıcı">
+          <ScalarProperty Name="kullaniciTur" ColumnName="kullaniciTur" />
           <ScalarProperty Name="kullaniciID" ColumnName="kullaniciID" />
           <ScalarProperty Name="kullaniciAd" ColumnName="kullaniciAd" />
           <ScalarProperty Name="kullaniciSoyad" ColumnName="kullaniciSoyad" />
@@ -62,6 +63,7 @@
     <EntitySetMapping Name="Soru">
       <EntityTypeMapping TypeName="SinavSistemiModel.Soru">
         <MappingFragment StoreEntitySet="Soru">
+          <ScalarProperty Name="soruOgretmenID" ColumnName="soruOgretmenID" />
           <ScalarProperty Name="soruID" ColumnName="soruID" />
           <ScalarProperty Name="soruMetin" ColumnName="soruMetin" />
           <ScalarProperty Name="soruCevap" ColumnName="soruCevap" />

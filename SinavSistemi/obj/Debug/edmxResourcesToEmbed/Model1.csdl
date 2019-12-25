@@ -29,6 +29,7 @@
     <Property Name="kullaniciSifre" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Ogrenci" Relationship="Self.FK_Ogrenci_Kullanıcı1" FromRole="Kullanıcı" ToRole="Ogrenci" />
     <NavigationProperty Name="Ogretmen" Relationship="Self.FK_Ogretmen_Kullanıcı1" FromRole="Kullanıcı" ToRole="Ogretmen" />
+    <Property Name="kullaniciTur" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Ogrenci">
     <Key>
@@ -49,6 +50,7 @@
     <Property Name="ogretmentDers" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="kullaniciID" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Kullanıcı" Relationship="Self.FK_Ogretmen_Kullanıcı1" FromRole="Ogretmen" ToRole="Kullanıcı" />
+    <NavigationProperty Name="Soru" Relationship="SinavSistemiModel.FK_Soru_Ogretmen" FromRole="Ogretmen" ToRole="Soru" />
   </EntityType>
   <EntityType Name="Sinav">
     <Key>
@@ -65,7 +67,7 @@
       <PropertyRef Name="soruID" />
     </Key>
     <Property Name="soruID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="soruMetin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="soruMetin" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="soruCevap" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="soruDersID" Type="Int32" Nullable="false" />
     <Property Name="soruKonuID" Type="Int32" Nullable="false" />
@@ -73,6 +75,8 @@
     <Property Name="soruSeviye" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Ders" Relationship="Self.FK_Soru_Ders" FromRole="Soru" ToRole="Ders" />
     <NavigationProperty Name="Konu" Relationship="Self.FK_Soru_Konu" FromRole="Soru" ToRole="Konu" />
+    <Property Name="soruOgretmenID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Ogretmen" Relationship="SinavSistemiModel.FK_Soru_Ogretmen" FromRole="Soru" ToRole="Ogretmen" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -173,5 +177,21 @@
       <End Role="Ogrenci" EntitySet="Ogrenci" />
       <End Role="Sinav" EntitySet="Sinav" />
     </AssociationSet>
+    <AssociationSet Name="FK_Soru_Ogretmen" Association="SinavSistemiModel.FK_Soru_Ogretmen">
+      <End Role="Ogretmen" EntitySet="Ogretmen" />
+      <End Role="Soru" EntitySet="Soru" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Soru_Ogretmen">
+    <End Type="SinavSistemiModel.Ogretmen" Role="Ogretmen" Multiplicity="1" />
+    <End Type="SinavSistemiModel.Soru" Role="Soru" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogretmen">
+        <PropertyRef Name="ogretmenID" />
+      </Principal>
+      <Dependent Role="Soru">
+        <PropertyRef Name="soruOgretmenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
