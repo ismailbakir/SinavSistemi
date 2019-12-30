@@ -21,9 +21,10 @@ namespace SinavSistemi
         }
     
         public int ogretmenID { get; set; }
-        public string ogretmentDers { get; set; }
+        public int ogretmenDersID { get; set; }
         public int kullaniciID { get; set; }
     
+        public virtual Ders Ders { get; set; }
         public virtual Kullanıcı Kullanıcı { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Soru> Soru { get; set; }

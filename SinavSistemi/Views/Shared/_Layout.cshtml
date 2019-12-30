@@ -33,15 +33,15 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="btn btn-warning" data-toggle="modal" data-target="#modalLogin" href="#">
-                            Giriş Yap
+                        <a class="btn btn-warning" data-toggle="modal" data-target="#modalStudentLogin" href="#">
+                            Öğrenci Giriş
                             <span class="sr-only">(current)</span>
                         </a>
                         <span class="mr-3"></span>
                     </li>
                     <li class="nav-item active">
-                        <a class=" btn btn-secondary" data-toggle="modal" data-target="#modalRegister" href="#">
-                            Kayıt Ol
+                        <a class=" btn btn-secondary" data-toggle="modal" data-target="#modalTeacherLogin" href="#">
+                            Öğretmen Giriş
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
@@ -85,8 +85,8 @@
 
 
     <!-- Modal -->
-    <form action='Home/GirisYap' method='post'>
-        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <form action='Home/OgrenciGiris' method='post'>
+        <div class="modal fade" id="modalStudentLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -115,33 +115,29 @@
     </form>
 
     <!-- Modal -->
-    <form action='#' method='get'>
-        <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <form action='Home/OgretmenGiris' method='post'>
+        <div class="modal fade" id="modalTeacherLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalTitleRegister">Kayıt Ol</h5>
+                        <h5 class="modal-title" id="modalTitleLogin">Giriş Yap</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="registerTC">TC NO</label>
-                            <input type="email" class="form-control" id="registerTC" required placeholder="Kimlik numaranızı giriniz">
-                        </div>
-                        <div class="form-group">
                             <label for="exampleInputEmail1">E-posta</label>
-                            <input type="email" class="form-control" id="registerEmail" required placeholder="E-posta adresinizi giriniz">
+                            <input type="email" class="form-control" name="email" id="exampleInputEmail1" required placeholder="E-posta adresinizi giriniz">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Şifre</label>
-                            <input type="password" class="form-control" id="registerPassword" required placeholder="Şifrenizi giriniz">
+                            <input type="password" class="form-control" name="password" id="exampleInputPassword1" required placeholder="Şifrenizi Giriniz">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                        <button type="submit" class="btn btn-success">Kayıt Ol</button>
+                        <button type="submit" class="btn btn-primary">Giriş Yap</button>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,11 @@ namespace SinavSistemi
         public int sinavSonuc { get; set; }
         public System.DateTime sinavTarih { get; set; }
         public int ogrenciID { get; set; }
+        public string dogruCevap { get; set; }
+        public string yanlisCevap { get; set; }
+        public int dersID { get; set; }
     
+        public virtual Ders Ders { get; set; }
         public virtual Ogrenci Ogrenci { get; set; }
     }
 }

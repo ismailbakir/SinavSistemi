@@ -2,11 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\SinavSistemi",
+    "\\SinavSistemi\\App_Start",
     "\\SinavSistemi\\Content",
     "\\SinavSistemi\\Content\\img",
+    "\\SinavSistemi\\Scripts",
     "\\SinavSistemi\\Views",
     "\\SinavSistemi\\Views\\Shared"
   ],
-  "SelectedNode": "\\SinavSistemi\\SinavSistemi.csproj",
+  "SelectedNode": "\\SinavSistemi\\Content\\img\\online_test.jpg",
   "PreviewInSolutionExplorer": false
 }

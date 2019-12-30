@@ -10,5 +10,10 @@ namespace SinavSistemi.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult AddQuestion()
+        {
+            return View();
+        }
     }
 }

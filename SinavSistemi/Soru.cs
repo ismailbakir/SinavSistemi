@@ -22,6 +22,7 @@ namespace SinavSistemi
         public string soruResim { get; set; }
         public int soruSeviye { get; set; }
         public int soruOgretmenID { get; set; }
+        public string soruYanlisCevap { get; set; }
     
         public virtual Ders Ders { get; set; }
         public virtual Konu Konu { get; set; }

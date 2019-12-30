@@ -12,7 +12,7 @@
       <PropertyRef Name="konuID" />
     </Key>
     <Property Name="konuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="konuAdi" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="konuAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="dersID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Kullanıcı">
@@ -41,7 +41,7 @@
       <PropertyRef Name="ogretmenID" />
     </Key>
     <Property Name="ogretmenID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ogretmentDers" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="ogretmenDersID" Type="int" Nullable="false" />
     <Property Name="kullaniciID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Sinav">
@@ -52,6 +52,9 @@
     <Property Name="sinavSonuc" Type="int" Nullable="false" />
     <Property Name="sinavTarih" Type="datetime" Nullable="false" />
     <Property Name="ogrenciID" Type="int" Nullable="false" />
+    <Property Name="dogruCevap" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="yanlisCevap" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="dersID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Soru">
     <Key>
@@ -65,6 +68,7 @@
     <Property Name="soruResim" Type="nvarchar" MaxLength="50" />
     <Property Name="soruSeviye" Type="int" Nullable="false" />
     <Property Name="soruOgretmenID" Type="int" Nullable="false" />
+    <Property Name="soruYanlisCevap" Type="nvarchar" MaxLength="200" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -76,6 +80,18 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <Association Name="FK_Konu_Ders">
+    <End Role="Ders" Type="Self.Ders" Multiplicity="1" />
+    <End Role="Konu" Type="Self.Konu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ders">
+        <PropertyRef Name="dersID" />
+      </Principal>
+      <Dependent Role="Konu">
+        <PropertyRef Name="dersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Ogrenci_Kullanıcı1">
     <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="1" />
     <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="*" />
@@ -88,7 +104,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Ogretmen_Kullanıcı1">
+  <Association Name="FK_Ogretmen_Ders">
+    <End Role="Ders" Type="Self.Ders" Multiplicity="1" />
+    <End Role="Ogretmen" Type="Self.Ogretmen" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ders">
+        <PropertyRef Name="dersID" />
+      </Principal>
+      <Dependent Role="Ogretmen">
+        <PropertyRef Name="ogretmenDersID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ogretmen_Kullanıcı">
     <End Role="Kullanıcı" Type="Self.Kullanıcı" Multiplicity="1" />
     <End Role="Ogretmen" Type="Self.Ogretmen" Multiplicity="*" />
     <ReferentialConstraint>
@@ -97,6 +125,18 @@
       </Principal>
       <Dependent Role="Ogretmen">
         <PropertyRef Name="kullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sinav_Ders">
+    <End Role="Ders" Type="Self.Ders" Multiplicity="1" />
+    <End Role="Sinav" Type="Self.Sinav" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ders">
+        <PropertyRef Name="dersID" />
+      </Principal>
+      <Dependent Role="Sinav">
+        <PropertyRef Name="dersID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -157,13 +197,25 @@
     <EntitySet Name="Sinav" EntityType="Self.Sinav" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Soru" EntityType="Self.Soru" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Konu_Ders" Association="Self.FK_Konu_Ders">
+      <End Role="Ders" EntitySet="Ders" />
+      <End Role="Konu" EntitySet="Konu" />
+    </AssociationSet>
     <AssociationSet Name="FK_Ogrenci_Kullanıcı1" Association="Self.FK_Ogrenci_Kullanıcı1">
       <End Role="Kullanıcı" EntitySet="Kullanıcı" />
       <End Role="Ogrenci" EntitySet="Ogrenci" />
     </AssociationSet>
-    <AssociationSet Name="FK_Ogretmen_Kullanıcı1" Association="Self.FK_Ogretmen_Kullanıcı1">
+    <AssociationSet Name="FK_Ogretmen_Ders" Association="Self.FK_Ogretmen_Ders">
+      <End Role="Ders" EntitySet="Ders" />
+      <End Role="Ogretmen" EntitySet="Ogretmen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ogretmen_Kullanıcı" Association="Self.FK_Ogretmen_Kullanıcı">
       <End Role="Kullanıcı" EntitySet="Kullanıcı" />
       <End Role="Ogretmen" EntitySet="Ogretmen" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sinav_Ders" Association="Self.FK_Sinav_Ders">
+      <End Role="Ders" EntitySet="Ders" />
+      <End Role="Sinav" EntitySet="Sinav" />
     </AssociationSet>
     <AssociationSet Name="FK_Sinav_Ogrenci" Association="Self.FK_Sinav_Ogrenci">
       <End Role="Ogrenci" EntitySet="Ogrenci" />
