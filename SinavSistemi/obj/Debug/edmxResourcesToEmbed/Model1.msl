@@ -34,6 +34,7 @@
     <EntitySetMapping Name="Ogrenci">
       <EntityTypeMapping TypeName="SinavSistemiModel.Ogrenci">
         <MappingFragment StoreEntitySet="Ogrenci">
+          <ScalarProperty Name="ogrenciOgrID" ColumnName="ogrenciOgrID" />
           <ScalarProperty Name="ogrenciID" ColumnName="ogrenciID" />
           <ScalarProperty Name="kullaniciID" ColumnName="kullaniciID" />
           <ScalarProperty Name="ogrenciSinif" ColumnName="ogrenciSinif" />
@@ -71,7 +72,6 @@
           <ScalarProperty Name="soruCevap" ColumnName="soruCevap" />
           <ScalarProperty Name="soruDersID" ColumnName="soruDersID" />
           <ScalarProperty Name="soruKonuID" ColumnName="soruKonuID" />
-          <ScalarProperty Name="soruResim" ColumnName="soruResim" />
           <ScalarProperty Name="soruSeviye" ColumnName="soruSeviye" />
           <ScalarProperty Name="soruOgretmenID" ColumnName="soruOgretmenID" />
           <ScalarProperty Name="soruYanlisCevap" ColumnName="soruYanlisCevap" />

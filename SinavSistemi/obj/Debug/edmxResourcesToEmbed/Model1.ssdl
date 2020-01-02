@@ -35,6 +35,7 @@
     <Property Name="kullaniciID" Type="int" Nullable="false" />
     <Property Name="ogrenciSinif" Type="int" Nullable="false" />
     <Property Name="ogrenciSeviye" Type="int" Nullable="false" />
+    <Property Name="ogrenciOgrID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Ogretmen">
     <Key>
@@ -65,7 +66,6 @@
     <Property Name="soruCevap" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="soruDersID" Type="int" Nullable="false" />
     <Property Name="soruKonuID" Type="int" Nullable="false" />
-    <Property Name="soruResim" Type="nvarchar" MaxLength="50" />
     <Property Name="soruSeviye" Type="int" Nullable="false" />
     <Property Name="soruOgretmenID" Type="int" Nullable="false" />
     <Property Name="soruYanlisCevap" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -101,6 +101,18 @@
       </Principal>
       <Dependent Role="Ogrenci">
         <PropertyRef Name="kullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ogrenci_Ogretmen">
+    <End Role="Ogretmen" Type="Self.Ogretmen" Multiplicity="1" />
+    <End Role="Ogrenci" Type="Self.Ogrenci" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogretmen">
+        <PropertyRef Name="ogretmenID" />
+      </Principal>
+      <Dependent Role="Ogrenci">
+        <PropertyRef Name="ogrenciOgrID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -203,6 +215,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Ogrenci_Kullanıcı1" Association="Self.FK_Ogrenci_Kullanıcı1">
       <End Role="Kullanıcı" EntitySet="Kullanıcı" />
+      <End Role="Ogrenci" EntitySet="Ogrenci" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ogrenci_Ogretmen" Association="Self.FK_Ogrenci_Ogretmen">
+      <End Role="Ogretmen" EntitySet="Ogretmen" />
       <End Role="Ogrenci" EntitySet="Ogrenci" />
     </AssociationSet>
     <AssociationSet Name="FK_Ogretmen_Ders" Association="Self.FK_Ogretmen_Ders">

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a9e637301f3d4bc193161fe76e0a9865" Name="Diagram1">
+      <Diagram DiagramId="67ad3bf75f1b44ae8a2729c744955f75" Name="Diagram1">
         <EntityTypeShape EntityType="SinavSistemiModel.Ders" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SinavSistemiModel.Konu" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SinavSistemiModel.Kullanıcı" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
@@ -22,6 +22,7 @@
         <AssociationConnector Association="SinavSistemiModel.FK_Ogretmen_Kullanıcı" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Sinav_Ogrenci" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Soru_Ogretmen" ManuallyRouted="false" />
+        <AssociationConnector Association="SinavSistemiModel.FK_Ogrenci_Ogretmen" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

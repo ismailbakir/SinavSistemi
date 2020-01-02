@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SinavSistemi.Soru>
+@{
+    Layout = null;
+}
+
+    <!DOCTYPE html>
+
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Sınav Odası</title>
+
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/bootstrap")
+        @ToastrHelper.ProcessToastrs()
+
+
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <input type="button" id="btnStartExam" class="btn btn-success float-left" value="Başla" />
+                </div>
+                <div class="col">
+                    <input type="button" id="btnFinishExam" class="btn btn-danger float-right" value="Bitir" />
+                </div>
+            </div>
+
+            <div class="row" id="time">
+                <div class="col container py-1">
+                    <div class="py-2">
+                        <div class="row">
+                            <div class="col-lg-5 mx-auto">
+                                <div class="rounded bg-gradient-4 text-white shadow p-5 text-center mb-5">
+                                    <div id="clock-c" class="countdown py-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @Html.BeginForm("Exam", "Student",FormMethod.Post){
+                <div class="row justify-content-center" id="questionArea">
+                    @foreach (var item in Model)
+                    {
+                        String[] cevaplar = item.soruYanlisCevap.Split(',');
+                        <div class="card bg-light mb-3" id="questionCard" style="width: 36rem;">
+                            <div class="card-header">@item.soruMetin</div>
+                            <div class="card-body">
+                                <input type="radio" name="@item.soruID" value= @item.soruCevap /> @item.soruCevap
+                                <br />
+                                <input type="radio" name="@item.soruID" value= @cevaplar[0] /> @cevaplar[0]
+                                <br />
+                                <input type="radio" name="@item.soruID" value= @cevaplar[1] /> @cevaplar[1]
+                                <br />
+                                <input type="radio" name="@item.soruID" value= @cevaplar[2] /> @cevaplar[2]
+                                <br />
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <script>
+            $(function () {
+                $("#btnStartExam").click(function () {
+                    function getTimer() {
+                        return new Date(new Date().valueOf() + 1 * 1 * 60 * 60 * 1000);
+                    }
+
+                    $('#clock-c').countdown(getTimer(), function (event) {
+                        var $this = $(this).html(event.strftime(''
+                            + '<span class="h1 font-weight-bold">%M</span> Min'
+                            + '<span class="h1 font-weight-bold">%S</span> Sec'));
+                    });
+                });
+
+                $('#btnFinishExam').click(function () {
+                    $('#clock-c').countdown('stop');
+                    $('form').submit();
+                });
+            });
+
+        </script>
+
+    </body>
+</html>
+    

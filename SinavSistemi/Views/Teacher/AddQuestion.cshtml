@@ -8,37 +8,38 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <title>AddQuestion</title>
+    <title>Soru Ekle</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @ToastrHelper.ProcessToastrs()
+
+
 </head>
-<body class="container" style="background-image:url(../../Content/img/resim.jpg);background-repeat: no-repeat;">
-    <div >
-        <div class="col-8">
-            <form style="padding-top:200px">
+<body class="container" style="background-size:cover; background-image:url(../../Content/img/deneme.jpg);background-repeat: no-repeat;">
+    <div>
+        <div class="col-8" style="padding : 200px">
+            @using (Html.BeginForm("AddQuestion", "Teacher", FormMethod.Post)){
+
+                @Html.DropDownList("dersler", null, new { @class = "form-control input-lg" })
+                @Html.DropDownList("konular", null, new { @class = "form-control input-lg" })
                 <div class="form-group">
                     <label for="exampleInputEmail1">Soru Metni</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Example : 5x5 = ?">
+                    <input type="text" class="form-control" name="soruMetin" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Example : 5x5 = ?">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Soru Cevap</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Example : 25">
+                    <input type="text" class="form-control" name="soruCevap" id="exampleInputPassword1" placeholder="Example : 25">
                 </div>
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-                        <label class="custom-file-label" for="inputGroupFile04">Dosya Seç</label>
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">SEÇ</button>
-                    </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Soru yanlış Cevap</label>
+                    <input type="text" class="form-control" name="soruYanlisCevap" id="exampleInputPassword2" placeholder="Example : 25">
                 </div>
                 <button type="submit" class="btn btn-primary">Soruyu Ekle</button>
-            </form>
+             }
         </div>
-        
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -2,6 +2,8 @@ namespace SinavSistemi
 {
     public class Toastr
     {
+        private ToastrType success;
+
         public string Message { get; set; }
         public string Title { get; set; }
         public ToastrType Type { get; set; }
@@ -16,6 +18,11 @@ namespace SinavSistemi
             this.Message = message;
             this.Title = title;
             this.Type = type;
+        }
+
+        public Toastr(string message, string title = "Information", ToastrType type = ToastrType.Info, ToastrType success = default) : this(message, title, type)
+        {
+            this.success = success;
         }
 
         public string ToJavascript()

@@ -29,20 +29,20 @@ namespace SinavSistemi.Controllers
         }
 
         [HttpPost]
-        public ActionResult OgrenciGiris(FormCollection form )
+        public ActionResult OgrenciGiris(FormCollection form)
         {
             var kullanici = KullaniciGetir(form);
 
-            if (kullanici != null && kullanici.kullaniciTur.Equals(0))
+            if (kullanici != null && kullanici.kullaniciTur.Equals(false))
             {
                 var ogrenci = db.Ogrenci.FirstOrDefault(x => x.kullaniciID.Equals(kullanici.kullaniciID));
                 Session.Add("ogrenciID", ogrenci.ogrenciID);
-                ToastrService.AddToUserQueue(new Toastr(message: "Başarılı Bir şekilde Giriş Yapıldı.", type: ToastrType.Success));
+                ToastrService.AddToUserQueue(new Toastr("Başarılı Bir şekilde Giriş Yapıldı.","Giriş Durumu",ToastrType.Success));
                 return RedirectToAction("Index", "Student");
             }
             else
             {
-                ToastrService.AddToUserQueue(new Toastr(message: "Giriş Yapılamadı!", type: ToastrType.Error));
+                ToastrService.AddToUserQueue(new Toastr("Giriş Yapılamadı!", "Giriş Durumu", ToastrType.Error));
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -58,16 +58,16 @@ namespace SinavSistemi.Controllers
         {
             var kullanici = KullaniciGetir(form);
 
-            if (kullanici != null && kullanici.kullaniciTur.Equals(1))
+            if (kullanici != null && kullanici.kullaniciTur.Equals(true))
             {
                 var ogretmen = db.Ogretmen.FirstOrDefault(x => x.kullaniciID.Equals(kullanici.kullaniciID));
                 Session.Add("ogretmenID", ogretmen.ogretmenID);
-                ToastrService.AddToUserQueue(new Toastr(message: "Başarılı Bir şekilde Giriş Yapıldı.", type: ToastrType.Success));
+                ToastrService.AddToUserQueue(new Toastr("Başarılı Bir şekilde Giriş Yapıldı.", "Giriş Durumu", ToastrType.Success));
                 return RedirectToAction("Index", "Teacher");
             }
             else
             {
-                ToastrService.AddToUserQueue(new Toastr(message: "Giriş Yapılamadı!", type: ToastrType.Error));
+                ToastrService.AddToUserQueue(new Toastr("Giriş Yapılamadı!", "Giriş Durumu", ToastrType.Error));
                 return RedirectToAction("Index", "Home");
             }
         }

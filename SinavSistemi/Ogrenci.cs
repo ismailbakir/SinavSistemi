@@ -24,9 +24,11 @@ namespace SinavSistemi
         public int kullaniciID { get; set; }
         public int ogrenciSinif { get; set; }
         public int ogrenciSeviye { get; set; }
+        public int ogrenciOgrID { get; set; }
     
         public virtual Kullanıcı Kullanıcı { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sinav> Sinav { get; set; }
+        public virtual Ogretmen Ogretmen { get; set; }
     }
 }

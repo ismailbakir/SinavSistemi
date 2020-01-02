@@ -5,11 +5,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Öğrenci Sayfası</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @ToastrHelper.ProcessToastrs()
+
 </head>
-<body style="background-image:url(../../Content/img/exam_bg.jpg);background-repeat: no-repeat;
-">
+<body style="background-size:cover; background-image:url(../../Content/img/exam_bg.jpg);background-repeat: no-repeat;">
     <div class="container">
         <div class="row" style="padding-top:15%">
             <div class="col">
@@ -18,7 +23,7 @@
                     <p class="lead">Burası senin özel alanın. Burada sınavlara katılabilirsin yada istatistiklerini görüntüleyebilirsin.</p>
                     <hr class="my-4">
                     <!-- Button trigger modal-->
-                    <a class="btn btn-secondary" data-toggle="modal" data-target="#modalProfileDetail" role="button">Bilgilerimi Görüntüle</a>
+                    <a class="btn btn-secondary text-white" id="showMyData" data-toggle="modal" data-target="#modalProfileDetail" role="button">Bilgilerimi Görüntüle</a>
                 </div>
             </div>
         </div>
@@ -29,7 +34,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Sınavlara Gir</h5>
                         <p class="card-text">Sınav Sorularını Çöz.</p>
-                        <a href="#" class="btn btn-dark">Hemen Gir</a>
+                        @Html.ActionLink("Hemen Gir", "Exam", "Student", new { @class = "btn btn-dark" })
                     </div>
                 </div>
             </div>
@@ -39,7 +44,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Sınav Sonuçlarımı Görüntüle</h5>
                         <p class="card-text">Sınavları ve İstatistikleri Görüntüleyin.</p>
-                        <a href="#" class="btn btn-warning">İstatistikleri Görüntüle</a>
+                        @Html.ActionLink("İstatistikleri Görüntüle", "Stats", "Student", new { @class = "btn btn-warning" })
                     </div>
                 </div>
             </div>
@@ -61,13 +66,12 @@
                 </div>
                 <!--Body-->
                 <div class="modal-body">
-                    <label class="input-group">Ad: </label>
-                    <label class="input-group">Soyad: </label>
-                    <label class="input-group">TC: </label>
-                    <label class="input-group">Email: </label>
-                    <label class="input-group">Telefon: </label>
-                    <label class="input-group">Sınıf: </label>
-                    <label class="input-group">Seviye: </label>
+                    <label id="profilAd" class="input-group">Ad: </label>
+                    <label id="profilSoyad" class="input-group">Soyad: </label>
+                    <label id="profilEmail" class="input-group">Email: </label>
+                    <label id="profilTel" class="input-group">Telefon: </label>
+                    <label id="profilSinif" class="input-group">Sınıf: </label>
+                    <label id="profilSeviye" class="input-group">Seviye: </label>
                 </div>
                 <!--Footer-->
                 <div class="modal-footer">
@@ -77,9 +81,24 @@
         </div>
     </div>
 
-    <!-- Modal: modalCart -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            $("#showMyData").click(function () {
+                $.ajax({
+                    url: '/Student/GetMyData/',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#profilAd").text("Ad: " + data.profilAd);
+                        $("#profilSoyad").text("Soyad: " + data.profilSoyad);
+                        $("#profilEmail").text("Email: " + data.profilEmail);
+                        $("#profilTel").text("Telefon: " + data.profilTel);
+                        $("#profilSinif").text("Sınıf: " + data.profilSinif);
+                        $("#profilSeviye").text("Seviye: " + data.profilSeviye);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

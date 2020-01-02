@@ -45,6 +45,8 @@
     <Property Name="ogrenciSeviye" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Kullanıcı" Relationship="Self.FK_Ogrenci_Kullanıcı1" FromRole="Ogrenci" ToRole="Kullanıcı" />
     <NavigationProperty Name="Sinav" Relationship="Self.FK_Sinav_Ogrenci" FromRole="Ogrenci" ToRole="Sinav" />
+    <Property Name="ogrenciOgrID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Ogretmen" Relationship="SinavSistemiModel.FK_Ogrenci_Ogretmen" FromRole="Ogrenci" ToRole="Ogretmen" />
   </EntityType>
   <EntityType Name="Ogretmen">
     <Key>
@@ -56,6 +58,7 @@
     <NavigationProperty Name="Ders" Relationship="Self.FK_Ogretmen_Ders" FromRole="Ogretmen" ToRole="Ders" />
     <NavigationProperty Name="Kullanıcı" Relationship="Self.FK_Ogretmen_Kullanıcı" FromRole="Ogretmen" ToRole="Kullanıcı" />
     <NavigationProperty Name="Soru" Relationship="Self.FK_Soru_Ogretmen" FromRole="Ogretmen" ToRole="Soru" />
+    <NavigationProperty Name="Ogrenci" Relationship="SinavSistemiModel.FK_Ogrenci_Ogretmen" FromRole="Ogretmen" ToRole="Ogrenci" />
   </EntityType>
   <EntityType Name="Sinav">
     <Key>
@@ -80,7 +83,6 @@
     <Property Name="soruCevap" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="soruDersID" Type="Int32" Nullable="false" />
     <Property Name="soruKonuID" Type="Int32" Nullable="false" />
-    <Property Name="soruResim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="soruSeviye" Type="Int32" Nullable="false" />
     <Property Name="soruOgretmenID" Type="Int32" Nullable="false" />
     <Property Name="soruYanlisCevap" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
@@ -251,5 +253,21 @@
       <End Role="Ogretmen" EntitySet="Ogretmen" />
       <End Role="Soru" EntitySet="Soru" />
     </AssociationSet>
+    <AssociationSet Name="FK_Ogrenci_Ogretmen" Association="SinavSistemiModel.FK_Ogrenci_Ogretmen">
+      <End Role="Ogretmen" EntitySet="Ogretmen" />
+      <End Role="Ogrenci" EntitySet="Ogrenci" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_Ogrenci_Ogretmen">
+    <End Type="SinavSistemiModel.Ogretmen" Role="Ogretmen" Multiplicity="1" />
+    <End Type="SinavSistemiModel.Ogrenci" Role="Ogrenci" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ogretmen">
+        <PropertyRef Name="ogretmenID" />
+      </Principal>
+      <Dependent Role="Ogrenci">
+        <PropertyRef Name="ogrenciOgrID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
