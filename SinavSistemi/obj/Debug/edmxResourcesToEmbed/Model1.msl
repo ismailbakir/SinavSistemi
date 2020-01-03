@@ -34,11 +34,11 @@
     <EntitySetMapping Name="Ogrenci">
       <EntityTypeMapping TypeName="SinavSistemiModel.Ogrenci">
         <MappingFragment StoreEntitySet="Ogrenci">
-          <ScalarProperty Name="ogrenciOgrID" ColumnName="ogrenciOgrID" />
           <ScalarProperty Name="ogrenciID" ColumnName="ogrenciID" />
           <ScalarProperty Name="kullaniciID" ColumnName="kullaniciID" />
           <ScalarProperty Name="ogrenciSinif" ColumnName="ogrenciSinif" />
           <ScalarProperty Name="ogrenciSeviye" ColumnName="ogrenciSeviye" />
+          <ScalarProperty Name="ogrenciOgrID" ColumnName="ogrenciOgrID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -58,9 +58,18 @@
           <ScalarProperty Name="sinavSonuc" ColumnName="sinavSonuc" />
           <ScalarProperty Name="sinavTarih" ColumnName="sinavTarih" />
           <ScalarProperty Name="ogrenciID" ColumnName="ogrenciID" />
-          <ScalarProperty Name="dogruCevap" ColumnName="dogruCevap" />
-          <ScalarProperty Name="yanlisCevap" ColumnName="yanlisCevap" />
           <ScalarProperty Name="dersID" ColumnName="dersID" />
+          <ScalarProperty Name="dogruSayisi" ColumnName="dogruSayisi" />
+          <ScalarProperty Name="yanlisSayisi" ColumnName="yanlisSayisi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sonCevaplar">
+      <EntityTypeMapping TypeName="SinavSistemiModel.sonCevaplar">
+        <MappingFragment StoreEntitySet="sonCevaplar">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="kn" ColumnName="kn" />
+          <ScalarProperty Name="yanlisAdeti" ColumnName="yanlisAdeti" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -72,6 +81,7 @@
           <ScalarProperty Name="soruCevap" ColumnName="soruCevap" />
           <ScalarProperty Name="soruDersID" ColumnName="soruDersID" />
           <ScalarProperty Name="soruKonuID" ColumnName="soruKonuID" />
+          <ScalarProperty Name="soruResim" ColumnName="soruResim" />
           <ScalarProperty Name="soruSeviye" ColumnName="soruSeviye" />
           <ScalarProperty Name="soruOgretmenID" ColumnName="soruOgretmenID" />
           <ScalarProperty Name="soruYanlisCevap" ColumnName="soruYanlisCevap" />

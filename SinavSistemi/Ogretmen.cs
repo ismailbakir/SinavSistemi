@@ -17,8 +17,8 @@ namespace SinavSistemi
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ogretmen()
         {
-            this.Soru = new HashSet<Soru>();
             this.Ogrenci = new HashSet<Ogrenci>();
+            this.Soru = new HashSet<Soru>();
         }
     
         public int ogretmenID { get; set; }
@@ -28,8 +28,8 @@ namespace SinavSistemi
         public virtual Ders Ders { get; set; }
         public virtual Kullanıcı Kullanıcı { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Soru> Soru { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ogrenci> Ogrenci { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Soru> Soru { get; set; }
     }
 }

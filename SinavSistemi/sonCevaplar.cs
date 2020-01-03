@@ -12,17 +12,10 @@ namespace SinavSistemi
     using System;
     using System.Collections.Generic;
     
-    public partial class Sinav
+    public partial class sonCevaplar
     {
-        public int sinavID { get; set; }
-        public int sinavSonuc { get; set; }
-        public System.DateTime sinavTarih { get; set; }
-        public int ogrenciID { get; set; }
-        public int dersID { get; set; }
-        public Nullable<int> dogruSayisi { get; set; }
-        public Nullable<int> yanlisSayisi { get; set; }
-    
-        public virtual Ders Ders { get; set; }
-        public virtual Ogrenci Ogrenci { get; set; }
+        public int id { get; set; }
+        public string kn { get; set; }
+        public Nullable<int> yanlisAdeti { get; set; }
     }
 }

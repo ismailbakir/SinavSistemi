@@ -5,6 +5,7 @@
     "\\SinavSistemi\\App_Start",
     "\\SinavSistemi\\Content",
     "\\SinavSistemi\\Content\\img",
+    "\\SinavSistemi\\Model",
     "\\SinavSistemi\\Scripts",
     "\\SinavSistemi\\Views",
     "\\SinavSistemi\\Views\\Shared"

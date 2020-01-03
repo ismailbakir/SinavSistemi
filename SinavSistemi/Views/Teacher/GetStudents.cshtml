@@ -1,0 +1,75 @@
+﻿@using SinavSistemi.Model
+@model List<OgrenciKullanici>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Öğrencilerim</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @ToastrHelper.ProcessToastrs()
+</head>
+<body style="background-image:url(../Content/img/students.jpeg); background-size:cover">
+    <div class="container">
+        
+        <div><p class="lead display-4 bg-transparent text-white">Öğrenci Listesi</p></div>
+
+        <div class="row">
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="col justify-content-center">
+                        <div class="card mb-3" id="questionCard" style="width: 24rem;">
+                            <div class="card-header">Öğrenci Bilgileri</div>
+                            <div class="card-body">
+                                <div><label>Ad: @item.ad</label></div>
+                                <div><label>Soyad: @item.soyad</label></div>
+                                <div><label>Email: @item.email</label></div>
+                                <div><label>Telefon: @item.tel</label></div>
+                                <div><label>Sınıf: @item.sinif</label></div>
+                                <div><label>Seviye: @item.seviye</label></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col justify-content-center">
+                        <div class="card mb-3" id="questionCard" style="width: 24rem;">
+                            <div class="card-header">Öğrenci Bilgileri</div>
+                            <div class="card-body">
+                                <div><label>Ad: @item.ad</label></div>
+                                <div><label>Soyad: @item.soyad</label></div>
+                                <div><label>Email: @item.email</label></div>
+                                <div><label>Telefon: @item.tel</label></div>
+                                <div><label>Sınıf: @item.sinif</label></div>
+                                <div><label>Seviye: @item.seviye</label></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col justify-content-center">
+                        <div class="card mb-3" id="questionCard" style="width: 24rem;">
+                            <div class="card-header">Öğrenci Bilgileri</div>
+                            <div class="card-body">
+                                <div><label>Ad: @item.ad</label></div>
+                                <div><label>Soyad: @item.soyad</label></div>
+                                <div><label>Email: @item.email</label></div>
+                                <div><label>Telefon: @item.tel</label></div>
+                                <div><label>Sınıf: @item.sinif</label></div>
+                                <div><label>Seviye: @item.seviye</label></div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+                }
+            </div>
+    </div>
+</body>
+</html>

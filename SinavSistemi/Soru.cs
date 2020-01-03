@@ -19,6 +19,7 @@ namespace SinavSistemi
         public string soruCevap { get; set; }
         public int soruDersID { get; set; }
         public int soruKonuID { get; set; }
+        public string soruResim { get; set; }
         public int soruSeviye { get; set; }
         public int soruOgretmenID { get; set; }
         public string soruYanlisCevap { get; set; }

@@ -53,9 +53,17 @@
     <Property Name="sinavSonuc" Type="int" Nullable="false" />
     <Property Name="sinavTarih" Type="datetime" Nullable="false" />
     <Property Name="ogrenciID" Type="int" Nullable="false" />
-    <Property Name="dogruCevap" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="yanlisCevap" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="dersID" Type="int" Nullable="false" />
+    <Property Name="dogruSayisi" Type="int" />
+    <Property Name="yanlisSayisi" Type="int" />
+  </EntityType>
+  <EntityType Name="sonCevaplar">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="kn" Type="nchar" MaxLength="10" />
+    <Property Name="yanlisAdeti" Type="int" />
   </EntityType>
   <EntityType Name="Soru">
     <Key>
@@ -66,6 +74,7 @@
     <Property Name="soruCevap" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="soruDersID" Type="int" Nullable="false" />
     <Property Name="soruKonuID" Type="int" Nullable="false" />
+    <Property Name="soruResim" Type="nvarchar" MaxLength="50" />
     <Property Name="soruSeviye" Type="int" Nullable="false" />
     <Property Name="soruOgretmenID" Type="int" Nullable="false" />
     <Property Name="soruYanlisCevap" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -207,6 +216,7 @@
     <EntitySet Name="Ogrenci" EntityType="Self.Ogrenci" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Ogretmen" EntityType="Self.Ogretmen" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Sinav" EntityType="Self.Sinav" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sonCevaplar" EntityType="Self.sonCevaplar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Soru" EntityType="Self.Soru" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Konu_Ders" Association="Self.FK_Konu_Ders">

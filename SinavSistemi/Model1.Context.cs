@@ -31,6 +31,7 @@ namespace SinavSistemi
         public virtual DbSet<Ogrenci> Ogrenci { get; set; }
         public virtual DbSet<Ogretmen> Ogretmen { get; set; }
         public virtual DbSet<Sinav> Sinav { get; set; }
+        public virtual DbSet<sonCevaplar> sonCevaplar { get; set; }
         public virtual DbSet<Soru> Soru { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }

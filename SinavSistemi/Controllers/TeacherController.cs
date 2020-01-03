@@ -9,9 +9,15 @@ namespace SinavSistemi.Controllers
     public class TeacherController : Controller
     {
         SinavSistemiEntities db = new SinavSistemiEntities();
+
         // GET: Teacher
         public ActionResult Index()
         {
+            int id = Convert.ToInt32(Session["ogretmenID"]);
+            if (id.Equals(0))
+            {
+                RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -71,11 +77,17 @@ namespace SinavSistemi.Controllers
         [HttpGet]
         public ActionResult AddQuestion()
         {
+            int id = Convert.ToInt32(Session["ogretmenID"]);
+            if (id == null)
+            {
+                RedirectToAction("Index", "Home");
+            }
 
             ViewBag.dersler = DersGetir();
             ViewBag.konular = KonuGetir();
 
-            return View();
+            var sorular = db.Soru.Where(x => x.soruOgretmenID.Equals(id)).Take(5).OrderByDescending(x => x.soruID).ToList();
+            return View(sorular);
         }
 
         [HttpPost]
@@ -83,7 +95,7 @@ namespace SinavSistemi.Controllers
         {
             SinavSistemiEntities db = new SinavSistemiEntities();
 
-            int Id = Convert.ToInt32(Session["ogretmenID"]);
+            int id = Convert.ToInt32(Session["ogretmenID"]);
             Soru yeniSoru = new Soru()
             {
                 soruMetin = form["soruMetin"],
@@ -91,8 +103,7 @@ namespace SinavSistemi.Controllers
                 soruYanlisCevap = form["soruYanlisCevap"],
                 soruDersID = Convert.ToInt32(form["dersler"]),
                 soruKonuID = Convert.ToInt32(form["konular"]),
-                soruOgretmenID = Id
-
+                soruOgretmenID = id
             };
             db.Soru.Add(yeniSoru);
             db.SaveChanges();
@@ -107,40 +118,35 @@ namespace SinavSistemi.Controllers
         public ActionResult GetStudents()
         {
             int id = Convert.ToInt32(Session["ogretmenID"]);
-            if (id == 0 || id == null)
+            if (id.Equals(0))
             {
-                return RedirectToAction("Index", "Home");
+                RedirectToAction("Index", "Home");
             }
-            List<Ogrenci> ogrenciler = db.Ogrenci.Where(x => x.ogrenciOgrID.Equals(2)).ToList();
-            List<Kullanıcı> kullanıcılar = new List<Kullanıcı>();
-            foreach (var item in ogrenciler)
-            {
-                kullanıcılar.Add(db.Kullanıcı.FirstOrDefault(x => x.kullaniciID.Equals(item.kullaniciID)));
-            }
-
-            List<Profil> profiles = new List<Profil>();
-            foreach (var item in kullanıcılar)
-            {
-                Profil p1 = new Profil();
-                p1.ad = item.kullaniciAd;
-                p1.soyad = item.kullaniciSoyad;
-                p1.email = item.kullaniciEmail;
-
-                foreach (var itemB in ogrenciler)
-                {
-                    p1.seviye = itemB.ogrenciSeviye;
-                    p1.sinif = itemB.ogrenciSinif;
-                }
-                profiles.Add(p1);
-            }
-
-            return View(profiles);
-
+            var query = from o in db.Ogrenci
+                             join k in db.Kullanıcı
+                                on o.kullaniciID equals k.kullaniciID
+                             where o.ogrenciOgrID == id
+                             select new OgrenciKullanici
+                             {
+                                 ad = k.kullaniciAd,
+                                 soyad = k.kullaniciSoyad,
+                                 email = k.kullaniciEmail,
+                                 tel = k.kullaniciTelefon,
+                                 sinif = o.ogrenciSinif,
+                                 seviye = o.ogrenciSeviye
+                             };
+            List<OgrenciKullanici> profiller = query.ToList();
+            return View(profiller);
         }
 
 
 
-
+        public ActionResult LogOut()
+        {
+            Session.Abandon();
+            ToastrService.AddToUserQueue(new Toastr("Başarıyla Çıkış Yapıldı.", "Çıkış İşlemi", ToastrType.Info));
+            return RedirectToAction("Index", "Home");
+        }
 
     }
 }

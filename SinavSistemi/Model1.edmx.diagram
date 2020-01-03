@@ -4,15 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="67ad3bf75f1b44ae8a2729c744955f75" Name="Diagram1">
-        <EntityTypeShape EntityType="SinavSistemiModel.Ders" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SinavSistemiModel.Konu" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SinavSistemiModel.Kullanıcı" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SinavSistemiModel.Ogrenci" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SinavSistemiModel.Ogretmen" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SinavSistemiModel.Sinav" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SinavSistemiModel.Soru" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SinavSistemiModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="9d147dd476b64f37a95cf5997375650b" Name="Diagram1">
+        <EntityTypeShape EntityType="SinavSistemiModel.Ders" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.Konu" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.Kullanıcı" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.Ogrenci" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.Ogretmen" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.Sinav" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.sonCevaplar" Width="1.5" PointX="2.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.Soru" Width="1.5" PointX="5.25" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SinavSistemiModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="6.25" IsExpanded="true" />
         <AssociationConnector Association="SinavSistemiModel.FK_Konu_Ders" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Ogretmen_Ders" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Sinav_Ders" ManuallyRouted="false" />
@@ -20,9 +21,9 @@
         <AssociationConnector Association="SinavSistemiModel.FK_Soru_Konu" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Ogrenci_Kullanıcı1" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Ogretmen_Kullanıcı" ManuallyRouted="false" />
+        <AssociationConnector Association="SinavSistemiModel.FK_Ogrenci_Ogretmen" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Sinav_Ogrenci" ManuallyRouted="false" />
         <AssociationConnector Association="SinavSistemiModel.FK_Soru_Ogretmen" ManuallyRouted="false" />
-        <AssociationConnector Association="SinavSistemiModel.FK_Ogrenci_Ogretmen" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

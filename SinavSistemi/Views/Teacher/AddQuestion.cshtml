@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Soru>
 @{
     Layout = null;
 }
@@ -18,27 +18,64 @@
 
 
 </head>
-<body class="container" style="background-size:cover; background-image:url(../../Content/img/deneme.jpg);background-repeat: no-repeat;">
-    <div>
-        <div class="col-8" style="padding : 200px">
-            @using (Html.BeginForm("AddQuestion", "Teacher", FormMethod.Post)){
+<body style="background-image:url(../../Content/img/green.jpg); background-size:cover">
+    <div class="container">
 
-                @Html.DropDownList("dersler", null, new { @class = "form-control input-lg" })
-                @Html.DropDownList("konular", null, new { @class = "form-control input-lg" })
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Soru Metni</label>
-                    <input type="text" class="form-control" name="soruMetin" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Example : 5x5 = ?">
+        <div class="row justify-content-center">
+            <div class="card bg-light mb-3" id="questionCard" style="width: 36rem;">
+                <div class="card-header display-4">Yeni Soru Ekle</div>
+                <div class="card-body">
+                    @using (Html.BeginForm("AddQuestion", "Teacher", FormMethod.Post))
+                    {
+                        <div class="form-group">
+                            @Html.DropDownList("dersler", null, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.DropDownList("konular", null, new { @class = "form-control" })
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="soruMetin" id="soruMetin" required placeholder="Soru Metnini Giriniz">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="soruCevap" id="soruCevap" required placeholder="Soru Cevabını Giriniz">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="soruYanlisCevap" id="soruYanlisCevap" required placeholder="Yanlış Cevapları Virgil Koyarak Giriniz">
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Soruyu Ekle</button>
+                        </div>
+
+                    }
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Soru Cevap</label>
-                    <input type="text" class="form-control" name="soruCevap" id="exampleInputPassword1" placeholder="Example : 25">
+            </div>
+        </div>
+
+        <div class="row justify-content-center" id="questionArea">
+            <div class="card bg-light mb-3" id="questionCard" style="width: 36rem;">
+                <div class="card-header display-4">Son Eklenen 5 Soru</div>
+                <div class="card-body">
+                    @foreach (var item in Model)
+                    {
+                        String[] cevaplar = item.soruYanlisCevap.Split(',');
+                        <div class="card bg-light mb-3" id="questionCard" style="width: 30rem;">
+                            <div class="card-header">@item.soruMetin</div>
+                            <div class="card-body">
+
+                                <p><label>Doğru Cevap: @item.soruCevap</label></p>
+                                <p><label>Yanlış Cevap: @cevaplar[0]</label></p>
+                                <p><label>Yanlış Cevap: @cevaplar[1]</label></p>
+                                <p><label>Yanlış Cevap: @cevaplar[2]</label></p>
+                            </div>
+                        </div>
+                    }
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Soru yanlış Cevap</label>
-                    <input type="text" class="form-control" name="soruYanlisCevap" id="exampleInputPassword2" placeholder="Example : 25">
-                </div>
-                <button type="submit" class="btn btn-primary">Soruyu Ekle</button>
-             }
+            </div>            
         </div>
     </div>
 </body>

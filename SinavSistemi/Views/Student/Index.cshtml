@@ -14,11 +14,12 @@
     @ToastrHelper.ProcessToastrs()
 
 </head>
-<body style="background-size:cover; background-image:url(../../Content/img/exam_bg.jpg);background-repeat: no-repeat;">
+<body style="background-size:cover; background-image:url(../../Content/img/students.jpeg);background-repeat: no-repeat;">
     <div class="container">
         <div class="row" style="padding-top:15%">
             <div class="col">
                 <div class="jumbotron bg-white">
+                    @Html.ActionLink("Çıkış Yap", "LogOut", "Student", new { @class = "btn btn-danger float-right" })
                     <h1 class="display-5">Profil</h1>
                     <p class="lead">Burası senin özel alanın. Burada sınavlara katılabilirsin yada istatistiklerini görüntüleyebilirsin.</p>
                     <hr class="my-4">
